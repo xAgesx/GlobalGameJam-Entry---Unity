@@ -1,5 +1,6 @@
 
 using UnityEngine;
+using UnityEngine.Playables;
 using UnityEngine.UI;
 
 public class ScaleWeight : MonoBehaviour {
@@ -11,8 +12,8 @@ public class ScaleWeight : MonoBehaviour {
     [SerializeField] float lerpSpeed = 0.5f;
     float targetValue = 0f;
     Slider slider;
-    [SerializeField]doorTrigger eventTrigger;
-    [SerializeField] AudioSource hint;
+    [SerializeField]PlayableDirector pd;
+    
     bool hintHasPlayed = false;
 
     void Start() {
@@ -32,7 +33,7 @@ public class ScaleWeight : MonoBehaviour {
             var sliderColor = slider.colors;
 
             totalMass += other.GetComponent<Rigidbody>().mass;
-            text.text = totalMass.ToString() + " Kg" + "/ "+targetValue+" Kg";
+            text.text = totalMass.ToString() + " Kg" + "/ 7.5 Kg";
             // if (!hintHasPlayed) {
             //     hint.Play();
             //     hintHasPlayed = true;
@@ -48,7 +49,7 @@ public class ScaleWeight : MonoBehaviour {
                 sliderColor.disabledColor = new Color(0f, 1f, 0f); 
                 text.color = Color.green;
                 //Play anim
-                eventTrigger.doorTriggered?.Invoke();
+                pd.Play();
             } else if (totalMass < neededWeight) {
                 sliderColor.disabledColor = new Color(1f, 0.92f, 0.016f);
                 text.color = Color.white;

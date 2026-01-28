@@ -8,7 +8,7 @@ public class PickupSystem : MonoBehaviour {
     public float interactDistance = 3f;
     public LayerMask interactableLayer;
     
-    private GameObject heldItem;
+    public GameObject heldItem;
     private Rigidbody heldRB;
 
     void Update() {
