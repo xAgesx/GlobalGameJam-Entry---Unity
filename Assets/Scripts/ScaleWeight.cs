@@ -1,4 +1,5 @@
 
+using System.Collections;
 using UnityEngine;
 using UnityEngine.Playables;
 using UnityEngine.UI;
@@ -8,13 +9,14 @@ public class ScaleWeight : MonoBehaviour {
     [SerializeField] float totalMass = 0;
     [SerializeField] GameObject weightTextUI;
     [SerializeField] GameObject weightSliderUI;
+    [SerializeField] GameObject itemHolder;
     [SerializeField] float neededWeight = 7.5f;
     [SerializeField] float lerpSpeed = 0.5f;
     float targetValue = 0f;
     Slider slider;
     [SerializeField]PlayableDirector pd;
     
-    bool hintHasPlayed = false;
+    bool pdHasPlayed = false;
 
     void Start() {
         slider = weightSliderUI.GetComponent<Slider>();
@@ -46,10 +48,12 @@ public class ScaleWeight : MonoBehaviour {
             }
 
             if (totalMass == neededWeight ) {
+                
                 sliderColor.disabledColor = new Color(0f, 1f, 0f); 
                 text.color = Color.green;
-                //Play anim
-                pd.Play();
+
+                StartCoroutine("playPD");
+                
             } else if (totalMass < neededWeight) {
                 sliderColor.disabledColor = new Color(1f, 0.92f, 0.016f);
                 text.color = Color.white;
@@ -63,6 +67,12 @@ public class ScaleWeight : MonoBehaviour {
         }
     }
 
+    IEnumerator playPD() {
+        yield return new WaitForSeconds(2);
+        if(!pdHasPlayed)
+            pd.Play();
+            pdHasPlayed = true;
+    }
     void OnTriggerExit(Collider other) {
         if (other.GetComponent<Rigidbody>()) {
             if (slider == null) slider = weightSliderUI.GetComponent<Slider>();
