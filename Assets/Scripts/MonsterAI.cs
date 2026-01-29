@@ -11,7 +11,7 @@ public class MonsterAI : MonoBehaviour {
 
     private int currentWaypointIndex = 0;
     private bool isChasing = false;
-    public PlayerMovement playerController;
+    public AbilityController abilityController;
 
     void Start() {
         if (agent == null) agent = GetComponent<NavMeshAgent>();
@@ -36,7 +36,7 @@ public class MonsterAI : MonoBehaviour {
     IEnumerator UpdatePathLoop() {
         while (true) {
             float distanceToPlayer = Vector3.Distance(transform.position, player.position);
-            bool playerIsVisible = !playerController.isSpiritMode; 
+            bool playerIsVisible = !abilityController.isSpiritActive; 
 
             if (playerIsVisible && distanceToPlayer < detectionRange) {
                 if (!isChasing) Debug.Log("<color=red>Monster: I SEE YOU!</color>");
@@ -58,7 +58,6 @@ public class MonsterAI : MonoBehaviour {
         if (waypoints.Length == 0) return;
 
         currentWaypointIndex = (currentWaypointIndex + 1) % waypoints.Length;
-        Debug.Log($"<color=cyan>Monster: Heading to Waypoint {currentWaypointIndex}</color>");
         agent.SetDestination(waypoints[currentWaypointIndex].position);
     }
 
