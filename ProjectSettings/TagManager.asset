@@ -9,6 +9,7 @@ TagManager:
   - BrewedPotion
   - Flammable
   - Rusty_Key
+  - Monster
   layers:
   - Default
   - TransparentFX
@@ -17,7 +18,7 @@ TagManager:
   - Water
   - UI
   - Interactables
-  - 
+  - Player
   - 
   - 
   - 

@@ -6,13 +6,9 @@ public class SoundManager : MonoBehaviour {
 
     public List<AudioSource> audioEffects;
     [SerializeField] List<PlayableDirector> timelines;
-    void Update() {
-        foreach(var i in timelines) {
-            if (i.isActiveAndEnabled) {
-                foreach(var sound in audioEffects) {
-                    sound.volume = 0.3f;
-                }
-            }
-        }
+
+
+    public void PlaySound(int index) {
+        audioEffects[index].Play();
     }
 }

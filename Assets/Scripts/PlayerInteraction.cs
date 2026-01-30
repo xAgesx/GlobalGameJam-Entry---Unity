@@ -1,5 +1,6 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerInteraction : MonoBehaviour {
     public float interactDistance = 4f;
@@ -34,19 +35,27 @@ public class PlayerInteraction : MonoBehaviour {
                     instructionText.color = warningColor;
                 } 
                 else {
-                    // Normal Mode:
+                    // Normal Mode
                     string name = item.data != null ? item.data.itemName : "Unknown Object";
                     float weight = item.GetWeight();
-
-                    infoText.text = (weight != 0f) ? $"{name} ({weight}kg)" : "";
+                    if(weight > .2f) {
+                        infoText.text = (weight != 0f) ? $"{name} ({weight}kg)" : "";
                     infoText.color = normalColor;
+                    } else {
+                        infoText.text = (weight != 0f) ? $"{name} ({item.data.description})" : "";
+                        infoText.color = normalColor;
+                    }
                     
-                    instructionText.text = "(LCLICK) To Pickup";
+                    
+                    // instructionText.text = "(LCLICK) To Pickup";
                     instructionText.color = normalColor;
                 }
 
                 instructionText.enabled = true;
                 return;
+            }else if(hit.collider.TryGetComponent(out Button btn)) {
+                if(Input.GetMouseButtonDown(0))
+                btn.onClick.Invoke();
             }
         }
         
