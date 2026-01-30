@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: Key_Golden
   m_EditorClassIdentifier: 
   itemName: Golden Key
-  description: 
+  description: Opens Doors

@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 001a94b77da2f73418818f0473e0ba57, type: 3}
   m_Name: wood
   m_EditorClassIdentifier: 
-  tempIncrease: 50
+  tempIncrease: 100

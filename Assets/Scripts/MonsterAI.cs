@@ -6,11 +6,13 @@ public class MonsterAI : MonoBehaviour {
     public NavMeshAgent agent;
     public Transform player;
     public Transform[] waypoints;
+    public SoundManager audioManager;
     public float detectionRange = 10f;
     public float updateInterval = 0.2f;
 
     private int currentWaypointIndex = 0;
     private bool isChasing = false;
+    public bool playingAUdio = false;
     public AbilityController abilityController;
 
     void Start() {
@@ -19,7 +21,7 @@ public class MonsterAI : MonoBehaviour {
             agent.SetDestination(waypoints[0].position);
         }
         
-        StartCoroutine(UpdatePathLoop());
+        
     }
 
     void Update() {
@@ -32,19 +34,26 @@ public class MonsterAI : MonoBehaviour {
             GoToNextWaypoint();
         }
     }
+    
 
     IEnumerator UpdatePathLoop() {
         while (true) {
             float distanceToPlayer = Vector3.Distance(transform.position, player.position);
             bool playerIsVisible = !abilityController.isSpiritActive; 
-
+           
             if (playerIsVisible && distanceToPlayer < detectionRange) {
                 if (!isChasing) Debug.Log("<color=red>Monster: I SEE YOU!</color>");
                 isChasing = true;
                 agent.SetDestination(player.position);
+                if (!playingAUdio) {
+                    audioManager.PlaySound(3);
+                    playingAUdio = true;
+                }
+                
             } else {
                 if (isChasing) Debug.Log("<color=yellow>Monster: Lost the trail. Back to patrol.</color>");
                 isChasing = false;
+                playingAUdio = false;
                 if (!agent.hasPath) {
                     agent.SetDestination(waypoints[currentWaypointIndex].position);
                 }
@@ -69,5 +78,9 @@ public class MonsterAI : MonoBehaviour {
         }
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, detectionRange);
+    }
+    void OnEnable() {
+        
+        StartCoroutine(UpdatePathLoop());
     }
 }
