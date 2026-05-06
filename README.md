@@ -3,7 +3,7 @@
 *Award-Winning Entry for Global Game Jam 2026 @ EPI*
 
 **[▶ Watch the Full Gameplay Video]**
-(https://img.youtube.com/vi/-yQ_HNlhY7w/maxresdefault.jpg)](https://www.youtube.com/watch?v=-yQ_HNlhY7w)
+[![Watch the video](https://img.youtube.com/vi/-yQ_HNlhY7w/maxresdefault.jpg)](https://www.youtube.com/watch?v=-yQ_HNlhY7w)
 
 ---
 
